@@ -56,9 +56,9 @@ def get_embedding_manager() -> EmbeddingManager:
 
 
 @st.cache_resource
-def get_ollama_client() -> OllamaClient:
+def get_ollama_client(base_url: str) -> OllamaClient:
     return OllamaClient(
-        base_url=config.OLLAMA_BASE_URL,
+        base_url=base_url,
         default_model=config.DEFAULT_OLLAMA_MODEL
     )
 
@@ -85,10 +85,20 @@ if "current_document" not in st.session_state:
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
+# Resolve Ollama base URL (supports Streamlit Cloud Secrets, environment variables, or local default)
+default_ollama_url = config.OLLAMA_BASE_URL
+try:
+    if "OLLAMA_BASE_URL" in st.secrets:
+        default_ollama_url = st.secrets["OLLAMA_BASE_URL"]
+except Exception:
+    pass
+
+if "custom_ollama_url" not in st.session_state:
+    st.session_state.custom_ollama_url = default_ollama_url
 
 # Load singletons
 embedding_mgr = get_embedding_manager()
-ollama_client = get_ollama_client()
+ollama_client = get_ollama_client(st.session_state.custom_ollama_url)
 
 
 # ==============================================================================
@@ -104,17 +114,27 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Verify local Ollama status
+# Verify local / remote Ollama status
 is_connected, msg, installed_models = ollama_client.check_connection()
 if not is_connected:
     st.error(
-        "⚠️ **Local Ollama service is not running.**\n\n"
-        "DocuMind AI requires Ollama to generate answers locally on your machine.\n\n"
-        "**To start Ollama:**\n"
-        "1. Open PowerShell or a terminal.\n"
-        "2. Run: `ollama serve` (or launch Ollama from your Start menu).\n"
-        "3. Refresh this page."
+        f"⚠️ **Ollama service is not reachable at `{st.session_state.custom_ollama_url}`.**\n\n"
+        "DocuMind AI requires an active Ollama instance to generate answers.\n\n"
+        "• **If running locally on your computer:**\n"
+        "  1. Open a terminal and run: `ollama serve`\n"
+        "  2. Refresh this page.\n\n"
+        "• **If running on Streamlit Cloud:**\n"
+        "  Provide your Ollama endpoint URL below (or configure `OLLAMA_BASE_URL` in your Streamlit Cloud Secrets):"
     )
+    with st.expander("⚙️ Configure Ollama Endpoint", expanded=True):
+        new_url = st.text_input(
+            "Ollama Base URL:",
+            value=st.session_state.custom_ollama_url,
+            help="e.g. http://localhost:11434 or https://your-tunnel.ngrok-free.app"
+        )
+        if st.button("🔗 Connect", use_container_width=True):
+            st.session_state.custom_ollama_url = new_url.strip()
+            st.rerun()
     st.stop()
 
 model_installed, _ = ollama_client.is_model_installed(config.DEFAULT_OLLAMA_MODEL)

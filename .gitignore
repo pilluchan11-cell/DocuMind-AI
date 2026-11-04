@@ -36,8 +36,8 @@ ENV/
 *.swp
 *.swo
 
-# Streamlit local credentials & cache
-.streamlit/
+# Streamlit local secrets
+.streamlit/secrets.toml
 *.log
 
 # OS generated files
