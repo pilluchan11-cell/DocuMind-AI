@@ -89,7 +89,10 @@ if "chat_history" not in st.session_state:
 default_ollama_url = config.OLLAMA_BASE_URL
 try:
     if "OLLAMA_BASE_URL" in st.secrets:
-        default_ollama_url = st.secrets["OLLAMA_BASE_URL"]
+        raw_secret = str(st.secrets["OLLAMA_BASE_URL"]).strip().strip('"').strip("'")
+        if "=" in raw_secret:
+            raw_secret = raw_secret.split("=", 1)[1].strip().strip('"').strip("'")
+        default_ollama_url = raw_secret
 except Exception:
     pass
 
@@ -133,7 +136,10 @@ if not is_connected:
             help="e.g. http://localhost:11434 or https://your-tunnel.ngrok-free.app"
         )
         if st.button("🔗 Connect", use_container_width=True):
-            st.session_state.custom_ollama_url = new_url.strip()
+            clean = new_url.strip().strip('"').strip("'")
+            if "=" in clean:
+                clean = clean.split("=", 1)[1].strip().strip('"').strip("'")
+            st.session_state.custom_ollama_url = clean
             st.rerun()
     st.stop()
 
