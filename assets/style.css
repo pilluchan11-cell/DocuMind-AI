@@ -1,0 +1,304 @@
+/* ==============================================================================
+   DocuMind AI - Modern SaaS Styling System
+   Theme: Precision Minimalist AI Architecture (Dark/Light Responsive)
+   ============================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-light: #eef2ff;
+    --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    --accent-teal: #06b6d4;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+    
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --border-subtle: #e2e8f0;
+    --border-focus: #6366f1;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+/* Global Typography & Font Overrides */
+html, body, [class*="css"] {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+code, pre, .stCodeBlock {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Header Branding Banner */
+.documind-header {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+    padding: 2.2rem 2.4rem;
+    border-radius: 16px;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    box-shadow: 0 12px 30px -6px rgba(79, 70, 229, 0.25);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.documind-header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.documind-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.documind-subtitle {
+    font-size: 1.05rem;
+    color: #cbd5e1;
+    margin-top: 0.4rem;
+    font-weight: 400;
+    max-width: 750px;
+}
+
+/* Metrics Dashboard Cards */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 1.3rem 1.4rem;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+    border-color: #cbd5e1;
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-gradient);
+}
+
+.metric-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.metric-value {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.metric-sub {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 0.3rem;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-online {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.status-offline {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.dot-online {
+    background: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+}
+
+.dot-offline {
+    background: #ef4444;
+}
+
+/* Chat Message Styling */
+.chat-bubble-user {
+    background: linear-gradient(135deg, #312e81 0%, #4338ca 100%);
+    color: #ffffff;
+    border-radius: 16px 16px 4px 16px;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 12px rgba(67, 56, 202, 0.2);
+    margin-left: auto;
+    max-width: 85%;
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
+.chat-bubble-ai {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+    border-radius: 16px 16px 16px 4px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-right: auto;
+    max-width: 90%;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+/* Source Reference Card */
+.source-box {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #6366f1;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    color: #334155;
+}
+
+.source-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.4rem;
+}
+
+.source-score {
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.source-content {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    background: #ffffff;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    margin-top: 0.4rem;
+    white-space: pre-wrap;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+/* Guidance Info Boxes */
+.guide-card {
+    background: #f8fafc;
+    border: 1px dashed #94a3b8;
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.guide-step {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+
+.guide-num {
+    background: #4f46e5;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Custom button tweaks */
+.stButton > button {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Test Pass / Fail Badges */
+.badge-pass {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border: 1px solid #86efac;
+}
+
+.badge-fail {
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border: 1px solid #fca5a5;
+}
