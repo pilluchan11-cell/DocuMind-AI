@@ -51,8 +51,11 @@ if css_path.exists():
 # CACHED RESOURCE INITIALIZATION
 # ==============================================================================
 @st.cache_resource(show_spinner="Loading embedding model (all-MiniLM-L6-v2)...")
-def get_embedding_manager() -> EmbeddingManager:
-    return EmbeddingManager(model_name=config.DEFAULT_EMBEDDING_MODEL)
+def get_embedding_manager(ollama_url: str = "http://localhost:11434") -> EmbeddingManager:
+    return EmbeddingManager(
+        model_name=config.DEFAULT_EMBEDDING_MODEL,
+        ollama_base_url=ollama_url
+    )
 
 
 @st.cache_resource
@@ -100,7 +103,7 @@ if "custom_ollama_url" not in st.session_state:
     st.session_state.custom_ollama_url = default_ollama_url
 
 # Load singletons
-embedding_mgr = get_embedding_manager()
+embedding_mgr = get_embedding_manager(st.session_state.custom_ollama_url)
 ollama_client = get_ollama_client(st.session_state.custom_ollama_url)
 
 
